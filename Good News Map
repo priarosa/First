@@ -1,0 +1,154 @@
+var canvas;
+var country = 'Please select a Country';
+var searchURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=';
+var info = [' '];
+
+
+function setup() {
+
+  //Setup Background
+  canvas = createCanvas(1920, 2500);
+  canvas.position(0,0,);
+  canvas.style('z-index', '2');
+}
+
+function draw() {
+  //reticle
+  clear();
+  stroke(0, 0, 0);
+  noFill();
+  line(mouseX, 0, mouseX, 1440);
+  line(0, mouseY, 1920, mouseY);
+  rect(mouseX-50, mouseY-50, 100 ,100);
+
+  //text box
+  strokeWeight(0);
+  textFont('Georgia');
+  fill(227, 227, 227);
+  rect(0, 1055, 1920, 1420);
+  fill('black')
+
+  //title
+  textAlign(CENTER);
+  textSize(40);
+  text(country, 0, 1080, 1920, 920);
+
+  //Information
+  textSize(30);
+  textAlign(LEFT);
+  text(info[1], 10, 1130, 1920, 920);
+  text(info[2], 10, 1295, 1920, 920);
+  text(info[3], 10, 1395, 1920, 920);
+  text(info[4], 10, 1495, 1920, 920);
+  text(info[5], 10, 1595, 1920, 920);
+  text(info[6], 10, 1695, 1920, 920);
+  text(info[7], 10, 1795, 1920, 920);
+  text(info[8], 10, 1895, 1920, 920);
+  text (info[9], 10, 1995, 1920, 920);
+  text(info[10], 10, 2095, 1920, 920);
+
+
+
+
+  // Location Markers
+  strokeWeight(4);
+  stroke(255, 0, 0, 100);
+  fill(0, 0, 0, 100);
+
+  //America
+  ellipse(243, 368, 100, 100);
+  //England
+  ellipse(851, 260, 50, 50);
+  //Russia
+  ellipse(1353, 212, 100, 100);
+  //Canada
+  ellipse(269, 225, 100, 100);
+  //Mexico
+  ellipse(202, 475, 50, 50);
+  //China
+  ellipse(1474, 390, 100, 100);
+  //Australia
+  ellipse(1670, 819, 100, 100);
+  //africa
+  ellipse(979, 555, 100, 100);
+  //Brazil
+  ellipse(519, 708, 100, 100);
+  //Greenland
+  ellipse(691, 132, 100, 100);
+}
+
+
+// On Mouse Click
+function mousePressed() {
+  searchURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=';
+  // Check if mouse is inside the circle
+  if (dist(mouseX, mouseY, 243, 368) < 50) {
+    country = ("America");
+    wikiSearch();
+  }
+  //England
+  if (dist(mouseX, mouseY, 851, 260) < 25) {
+    country = ("England");
+    wikiSearch();
+  }
+  //Russia
+  if (dist(mouseX, mouseY, 1353, 212) < 50) {
+    country = ("Russia");
+    wikiSearch();
+  }
+  //Canada
+  if (dist(mouseX, mouseY, 269, 225) < 50) {
+    country = ("Canada");
+    wikiSearch();
+  }
+  //Mexico
+  if (dist(mouseX, mouseY, 202, 475) < 25) {
+    country = ("Mexico");
+    wikiSearch();
+  }
+  //China
+  if (dist(mouseX, mouseY, 1474, 390) < 50) {
+    country = ("China");
+    wikiSearch();
+  }
+  //Australia
+  if (dist(mouseX, mouseY, 1670, 819) < 50) {
+    country = ("Australia");
+    wikiSearch();
+  }
+  //Africa
+  if (dist(mouseX, mouseY, 979, 555) < 50) {
+    country = ("Africa");
+    wikiSearch();
+  }
+  //Brazil
+  if (dist(mouseX, mouseY, 519, 708) < 50) {
+    country = ("Brazil");
+    wikiSearch();
+  }
+  //Greenland
+  if (dist(mouseX, mouseY, 691, 132) < 50) {
+    country = ("Greenland");
+    wikiSearch();
+  }
+}
+
+
+
+
+
+//Wikipedia API Grab
+
+
+function wikiSearch() {
+  let url = searchURL + country;
+  console.log(url);
+  loadJSON(url, gotData);
+}
+
+function gotData(data) {
+  console.log(data)
+  console.log(data[2][0])
+  let title = data[2][0];
+  info = [data[2][0],data[2][1],data[2][2],data[2][3],data[2][4],data[2][5],data[2][6],data[2][7],data[2][8],data[2][9]];
+}
